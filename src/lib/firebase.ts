@@ -99,8 +99,14 @@ export async function getPortfolioData(defaults: {
       
       let migrated = false;
 
-      // Auto-migrate name if it contains "Tariq Mansour" or "طارق منصور" to "Nada Hamad"
-      if (profile.name && (profile.name.en === "Tariq Mansour" || profile.name.ar === "طارق منصور")) {
+      // Auto-migrate name if it contains "Tariq", "Mansour", "طارق", or "منصور" to "Nada Hamad"
+      const isTariq = (str: string) => {
+        if (!str) return false;
+        const normalized = str.toLowerCase();
+        return normalized.includes("tariq") || normalized.includes("mansour") || normalized.includes("طارق") || normalized.includes("منصور");
+      };
+
+      if (profile.name && (isTariq(profile.name.en) || isTariq(profile.name.ar))) {
         profile.name = {
           ar: "ندا حمد",
           en: "Nada Hamad"

@@ -89,6 +89,11 @@ export default function App() {
             setProfile(loadedProfile);
             setProjects(data.projects);
             setSkills(data.skills);
+
+            // Cleanly overwrite any old local cache with the newest Nada Hamad info
+            localStorage.setItem('mansour_media_profile', JSON.stringify(loadedProfile));
+            localStorage.setItem('mansour_media_projects', JSON.stringify(data.projects));
+            localStorage.setItem('mansour_media_skills', JSON.stringify(data.skills));
           }
           if (fetchedMessages) {
             setMessages(fetchedMessages);
@@ -103,7 +108,20 @@ export default function App() {
         const savedMessages = localStorage.getItem('mansour_media_messages');
 
         if (active) {
-          if (savedProfile) setProfile(JSON.parse(savedProfile));
+          if (savedProfile) {
+            let parsedProfile = JSON.parse(savedProfile) as ProfileData;
+            const containsTariq = (str?: string) => {
+              if (!str) return false;
+              const normalized = str.toLowerCase();
+              return normalized.includes("tariq") || normalized.includes("mansour") || normalized.includes("طارق") || normalized.includes("منصور");
+            };
+            if (parsedProfile.name && (containsTariq(parsedProfile.name.en) || containsTariq(parsedProfile.name.ar))) {
+              parsedProfile = INITIAL_PROFILE;
+            }
+            setProfile(parsedProfile);
+          } else {
+            setProfile(INITIAL_PROFILE);
+          }
           if (savedProjects) setProjects(JSON.parse(savedProjects));
           if (savedSkills) setSkills(JSON.parse(savedSkills));
           if (savedMessages) setMessages(JSON.parse(savedMessages));
