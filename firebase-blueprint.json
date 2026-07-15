@@ -1,0 +1,163 @@
+{
+  "entities": {
+    "Profile": {
+      "title": "Profile",
+      "description": "User profile containing personal information and metrics",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "object"
+        },
+        "title": {
+          "type": "object"
+        },
+        "bio": {
+          "type": "object"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "cvUrl": {
+          "type": "string"
+        },
+        "metrics": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "title",
+        "bio",
+        "imageUrl",
+        "metrics"
+      ]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "Portfolio work project item",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "title": {
+          "type": "object"
+        },
+        "publisher": {
+          "type": "object"
+        },
+        "description": {
+          "type": "object"
+        },
+        "link": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "category",
+        "title",
+        "publisher",
+        "description",
+        "link",
+        "date"
+      ]
+    },
+    "Skill": {
+      "title": "Skill",
+      "description": "An expertise or skill tag",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "object"
+        },
+        "level": {
+          "type": "number"
+        },
+        "iconName": {
+          "type": "string"
+        },
+        "category": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "level",
+        "iconName",
+        "category"
+      ]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Guest contact form submission",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "handle": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "object"
+        },
+        "message": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "isRead": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "handle",
+        "purpose",
+        "message",
+        "timestamp",
+        "isRead"
+      ]
+    }
+  },
+  "firestore": {
+    "settings/profile": {
+      "schema": "Profile",
+      "description": "The profile settings document"
+    },
+    "settings/projects": {
+      "schema": "object",
+      "description": "The list of projects inside a container data field"
+    },
+    "settings/skills": {
+      "schema": "object",
+      "description": "The list of skills inside a container data field"
+    },
+    "messages/{messageId}": {
+      "schema": "Message",
+      "description": "Visitor contact queries"
+    }
+  }
+}
